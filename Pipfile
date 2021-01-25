@@ -20,6 +20,7 @@ python-language-server = "*"
 flake8 = "*"
 docker = "*"
 datajoint = "*"
+datajoint-cleaner = {path = "."}
 
 [requires]
 python_version = "3.8"
