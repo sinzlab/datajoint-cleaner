@@ -18,6 +18,7 @@ ipdb = "*"
 jedi = "<0.18.0"
 python-language-server = "*"
 flake8 = "*"
+datajoint-cleaner = {path = "."}
 
 [requires]
 python_version = "3.8"
