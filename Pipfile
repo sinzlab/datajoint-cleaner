@@ -19,6 +19,7 @@ jedi = "<0.18.0"
 python-language-server = "*"
 flake8 = "*"
 docker = "*"
+datajoint = "*"
 
 [requires]
 python_version = "3.8"
