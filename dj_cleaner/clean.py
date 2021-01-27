@@ -11,8 +11,8 @@ from .minio_facade import MinIOFacade
 from .minio_gateway import MinIOGateway
 
 
-def main():
-    """Run main."""
+def clean():
+    """Clean up external objects."""
     minio_facade = MinIOFacade(
         endpoint=os.environ["MINIO_ENDPOINT"],
         access_key=os.environ["MINIO_ACCESS_KEY"],
@@ -49,7 +49,3 @@ def get_db_object_ids() -> Set[UUID]:
             object_ids = {x["hash"] for x in result}  # type: ignore
             object_ids = {UUID(bytes=h) for h in object_ids}
             return object_ids
-
-
-if __name__ == "__main__":
-    main()
