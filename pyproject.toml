@@ -1,6 +1,40 @@
-[build-system]
-requires = ["setuptools", "wheel"]
-build-backend = "setuptools.build_meta"
+[project]
+name = "datajoint-cleaner"
+version = "0.0"
+description = "A tool for cleaning up external DataJoint stores"
+authors = [
+    {name = "Christoph Blessing", email = "chris.blessing@protonmail.com"},
+]
+dependencies = [
+    "minio~=7.0",
+    "pymysql~=1.0",
+]
+dev-dependencies = [
+    "docker~=4.4",
+    "datajoint~=0.12",
+    "pytest~=6.2",
+    "mypy~=0.800",
+    "pydocstyle~=5.1",
+    "black~=20.8b1",
+    "isort~=5.7",
+    "flake8~=3.8",
+    "ipdb~=0.13",
+    "parso<0.8.0",
+    "jedi<0.18.0",
+    "python-language-server~=0.36",
+]
+requires-python = ">=3.9"
+dynamic = ["classifiers"]
+license = {text = "GPL-3.0-only"}
 
+[project.urls]
+homepage = "https://github.com/sinzlab/datajoint-cleaner"
+
+[tool]
+[tool.pdm]
 [tool.black]
 line-length = 120
+
+[build-system]
+requires = ["pdm-pep517"]
+build-backend = "pdm.pep517.api"
