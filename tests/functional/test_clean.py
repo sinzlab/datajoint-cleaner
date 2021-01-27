@@ -19,7 +19,7 @@ DB_ROOT_PASSWORD = "simple"
 DB_PASSWORD = "simple"
 DB_PORT = 3306
 
-MINIO_IMAGE_TAG = "latest"
+MINIO_IMAGE_TAG = "RELEASE.2021-01-16T02-19-44Z"
 MINIO_ENDPOINT = "localhost"
 MINIO_ACCESS_KEY = "access_key"
 MINIO_SECRET_KEY = "secret_key"
