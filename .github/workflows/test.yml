@@ -20,7 +20,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install pdm
       - name: Install project
-        run: pdm install
+        run: pdm install --dev
       - name: Run pytest
         run: pdm run pytest tests
 
