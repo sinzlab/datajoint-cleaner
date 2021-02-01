@@ -17,7 +17,7 @@ class MinIOGateway:
         self._object_id_to_object_path_mapping: Dict[UUID, str] = {}
 
     def get_object_ids(self) -> Set[UUID]:
-        """Get the object IDs."""
+        """Get the IDs of objects stored in the MinIO bucket."""
         object_paths = self._get_object_paths()
         object_ids = self._convert_object_paths_to_object_ids(object_paths)
         self._add_object_ids_and_object_paths_to_mapping(object_ids, object_paths)

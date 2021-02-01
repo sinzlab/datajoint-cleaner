@@ -9,7 +9,7 @@ class AbstractDatabaseGateway(ABC):
 
     @abstractmethod
     def get_ids(self) -> Set[UUID]:
-        """Get the IDs of entities stored in the external table."""
+        """Get the IDs of entities stored in the database."""
 
 
 class AbstractExternalGateway(ABC):
