@@ -10,3 +10,15 @@ class AbstractDatabaseGateway(ABC):
     @abstractmethod
     def get_ids(self) -> Set[UUID]:
         """Get the IDs of entities stored in the external table."""
+
+
+class AbstractExternalGateway(ABC):
+    """Defines the interface of the external gateway as expected by the use-cases."""
+
+    @abstractmethod
+    def get_object_ids(self) -> Set[UUID]:
+        """Get the IDs of all objects stored in the external store."""
+
+    @abstractmethod
+    def delete_objects(self, object_ids: Set[UUID]) -> None:
+        """Delete the objects specified by the provided object IDs from the external store."""
