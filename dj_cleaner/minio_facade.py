@@ -1,5 +1,5 @@
 """Contains the facade of the MinIO interface."""
-from typing import List, Set
+from typing import Dict, List, Optional, Set
 
 from minio import Minio
 from minio.deleteobjects import DeleteObject
@@ -8,9 +8,22 @@ from minio.deleteobjects import DeleteObject
 class MinIOFacade:
     """Facade of the MinIO interface."""
 
-    def __init__(self, endpoint: str, access_key: str, secret_key: str, secure: bool) -> None:
+    def __init__(self, config: Dict[str, str]) -> None:
         """Initialize MinIOFacade."""
-        self.client = Minio(endpoint, access_key=access_key, secret_key=secret_key, secure=secure)
+        self.config = config
+        self._client: Optional[Minio] = None
+
+    @property
+    def client(self) -> Minio:
+        """Return already instantiated MinIO client if possible or instantiate and return a new one."""
+        if not self._client:
+            self._client = Minio(
+                self.config["endpoint"],
+                access_key=self.config["access_key"],
+                secret_key=self.config["secret_key"],
+                secure=self.config["secure"] == "True",
+            )
+        return self._client
 
     def get_object_paths(self, bucket_name: str, prefix: str) -> List[str]:
         """Get all paths that match the provided prefix of MinIO objects from the bucket."""

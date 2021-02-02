@@ -1,16 +1,31 @@
 """Contains the facade of the PyMySQL interface."""
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Optional
 
 from pymysql import connect
+from pymysql.connections import Connection
 from pymysql.cursors import DictCursor
 
 
 class PyMySQLFacade:
     """Facade for the PyMySQL interface."""
 
-    def __init__(self, host: str, user: str, password: str, database: str) -> None:
+    def __init__(self, config: Dict[str, str]) -> None:
         """Initialize PyMySQLFacade."""
-        self.connection = connect(host=host, user=user, password=password, database=database, cursorclass=DictCursor)
+        self.config = config
+        self._connection: Optional[Connection] = None
+
+    @property
+    def connection(self) -> Connection:
+        """Return already instantiated PyMySQL connection if possible or instantiate and return a new one."""
+        if not self._connection:
+            self._connection = connect(
+                host=self.config["host"],
+                user=self.config["user"],
+                password=self.config["password"],
+                database=self.config["database"],
+                cursorclass=DictCursor,
+            )
+        return self._connection
 
     def execute(self, sql: str) -> List[Dict[str, Any]]:
         """Execute SQL and return the result."""

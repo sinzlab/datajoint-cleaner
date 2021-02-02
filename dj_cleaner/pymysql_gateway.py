@@ -1,5 +1,5 @@
 """Contains the PyMySQL gateway."""
-from typing import Set
+from typing import Dict, Set
 from uuid import UUID
 
 from .pymysql_facade import PyMySQLFacade
@@ -8,14 +8,14 @@ from .pymysql_facade import PyMySQLFacade
 class PyMySQLGateway:
     """Gateway between the PyMySQL facade and the use cases."""
 
-    def __init__(self, facade: PyMySQLFacade, store_name: str) -> None:
+    def __init__(self, facade: PyMySQLFacade, config: Dict[str, str]) -> None:
         """Initialize PyMySQLGateway."""
         self.facade = facade
-        self.store_name = store_name
+        self.config = config
 
     def get_ids(self) -> Set[UUID]:
         """Get the IDs of entities stored in the external table."""
-        external_table_name = "~external_" + self.store_name
+        external_table_name = "~external_" + self.config["store_name"]
         sql = f"SELECT `hash` from `{external_table_name}`"
         hashes = self.facade.execute(sql)
         object_ids = {UUID(bytes=h["hash"]) for h in hashes}

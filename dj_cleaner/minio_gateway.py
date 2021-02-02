@@ -8,12 +8,10 @@ from .minio_facade import MinIOFacade
 class MinIOGateway:
     """Gateway between the MinIO facade and the use-cases."""
 
-    def __init__(self, facade: MinIOFacade, bucket_name: str, location: str, schema_name: str) -> None:
+    def __init__(self, facade: MinIOFacade, config: Dict[str, str]) -> None:
         """Initialize MinIOGateway."""
         self.facade = facade
-        self.bucket_name = bucket_name
-        self.location = location
-        self.schema_name = schema_name
+        self.config = config
         self._object_id_to_object_path_mapping: Dict[UUID, str] = {}
 
     def get_object_ids(self) -> Set[UUID]:
@@ -25,8 +23,8 @@ class MinIOGateway:
 
     def _get_object_paths(self) -> List[str]:
         """Get the paths of MinIO objects."""
-        prefix = self.location + "/" + self.schema_name
-        object_paths = self.facade.get_object_paths(self.bucket_name, prefix=prefix)
+        prefix = self.config["location"] + "/" + self.config["schema_name"]
+        object_paths = self.facade.get_object_paths(self.config["bucket_name"], prefix=prefix)
         return object_paths
 
     def _convert_object_paths_to_object_ids(self, paths: List[str]) -> List[UUID]:
@@ -48,4 +46,4 @@ class MinIOGateway:
     def delete_objects(self, object_ids: Set[UUID]) -> None:
         """Delete the objects specified by the provided object IDs from the MinIO bucket."""
         object_paths = self._convert_object_ids_to_object_paths(object_ids)
-        self.facade.remove_objects(self.bucket_name, object_paths)
+        self.facade.remove_objects(self.config["bucket_name"], object_paths)
