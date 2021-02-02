@@ -2,8 +2,8 @@
 from typing import Dict, List, Set
 from uuid import UUID
 
-from .abstract import AbstractExternalGateway
-from .minio_facade import MinIOFacade
+from ..frameworks.minio_facade import MinIOFacade
+from ..use_cases.interfaces import AbstractExternalGateway
 
 
 class MinIOGateway(AbstractExternalGateway):

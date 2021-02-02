@@ -2,7 +2,7 @@
 import os
 from typing import Dict
 
-from .clean import UseCase
+from ..use_cases.abstract import UseCase
 
 
 class Controller:

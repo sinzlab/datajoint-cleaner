@@ -1,4 +1,4 @@
-"""Contains the definitions of the database/external gateway interfaces."""
+"""Contains the definitions of interfaces as expected by the use-cases."""
 from abc import ABC, abstractmethod
 from typing import Set
 from uuid import UUID

@@ -1,21 +1,8 @@
 """Contains a simple prototype."""
 from __future__ import annotations
 
-from abc import ABC, abstractmethod
-
-from .abstract import AbstractDatabaseGateway, AbstractExternalGateway
-
-
-class UseCase(ABC):
-    """Abstract base class for all use-cases."""
-
-    def __call__(self) -> None:
-        """Execute the use-case."""
-        self._execute()
-
-    @abstractmethod
-    def _execute(self) -> None:
-        """Execute the use-case."""
+from .abstract import UseCase
+from .interfaces import AbstractDatabaseGateway, AbstractExternalGateway
 
 
 class Clean(UseCase):

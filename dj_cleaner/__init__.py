@@ -1,12 +1,12 @@
 """Initialize package."""
 from typing import Dict
 
-from .clean import Clean
-from .controller import Controller
-from .minio_facade import MinIOFacade
-from .minio_gateway import MinIOGateway
-from .pymysql_facade import PyMySQLFacade
-from .pymysql_gateway import PyMySQLGateway
+from .adapters.controller import Controller
+from .adapters.minio_gateway import MinIOGateway
+from .adapters.pymysql_gateway import PyMySQLGateway
+from .frameworks.minio_facade import MinIOFacade
+from .frameworks.pymysql_facade import PyMySQLFacade
+from .use_cases.clean import Clean
 
 config: Dict[str, str] = {}
 minio_facade = MinIOFacade(config)

@@ -2,8 +2,8 @@
 from typing import Dict, Set
 from uuid import UUID
 
-from .abstract import AbstractDatabaseGateway
-from .pymysql_facade import PyMySQLFacade
+from ..frameworks.pymysql_facade import PyMySQLFacade
+from ..use_cases.interfaces import AbstractDatabaseGateway
 
 
 class PyMySQLGateway(AbstractDatabaseGateway):
