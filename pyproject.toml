@@ -30,6 +30,7 @@ homepage = "https://github.com/sinzlab/datajoint-cleaner"
 line-length = 120
 [tool.pylint.master]
 max-line-length = 120
+ignore-patterns = "test_.*?\\.py"
 
 [build-system]
 requires = ["pdm-pep517"]
