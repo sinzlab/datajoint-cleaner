@@ -2,7 +2,8 @@
 from __future__ import annotations
 
 from abc import ABC, abstractmethod
-from typing import Dict
+
+from .abstract import AbstractDatabaseGateway, AbstractExternalGateway
 
 
 class UseCase(ABC):
@@ -20,7 +21,7 @@ class UseCase(ABC):
 class Clean(UseCase):
     """Clean use-case."""
 
-    def __init__(self, db_gateway, external_gateway) -> None:
+    def __init__(self, db_gateway: AbstractDatabaseGateway, external_gateway: AbstractExternalGateway) -> None:
         """Initialize Clean."""
         self.db_gateway = db_gateway
         self.external_gateway = external_gateway

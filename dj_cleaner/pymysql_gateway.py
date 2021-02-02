@@ -2,10 +2,11 @@
 from typing import Dict, Set
 from uuid import UUID
 
+from .abstract import AbstractDatabaseGateway
 from .pymysql_facade import PyMySQLFacade
 
 
-class PyMySQLGateway:
+class PyMySQLGateway(AbstractDatabaseGateway):
     """Gateway between the PyMySQL facade and the use cases."""
 
     def __init__(self, facade: PyMySQLFacade, config: Dict[str, str]) -> None:

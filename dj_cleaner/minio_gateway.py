@@ -2,10 +2,11 @@
 from typing import Dict, List, Set
 from uuid import UUID
 
+from .abstract import AbstractExternalGateway
 from .minio_facade import MinIOFacade
 
 
-class MinIOGateway:
+class MinIOGateway(AbstractExternalGateway):
     """Gateway between the MinIO facade and the use-cases."""
 
     def __init__(self, facade: MinIOFacade, config: Dict[str, str]) -> None:
