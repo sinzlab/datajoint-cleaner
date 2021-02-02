@@ -12,7 +12,7 @@ class PyMySQLFacade:
     def __init__(self, config: Dict[str, str]) -> None:
         """Initialize PyMySQLFacade."""
         self.config = config
-        self._connection: Optional[Connection] = None
+        self._connection: Optional[Connection] = None  # pylint: disable=unsubscriptable-object
 
     @property
     def connection(self) -> Connection:

@@ -11,7 +11,7 @@ class MinIOFacade:
     def __init__(self, config: Dict[str, str]) -> None:
         """Initialize MinIOFacade."""
         self.config = config
-        self._client: Optional[Minio] = None
+        self._client: Optional[Minio] = None  # pylint: disable=unsubscriptable-object
 
     @property
     def client(self) -> Minio:
