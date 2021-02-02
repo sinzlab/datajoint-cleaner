@@ -28,7 +28,8 @@ class MinIOGateway(AbstractExternalGateway):
         object_paths = self.facade.get_object_paths(self.config["bucket_name"], prefix=prefix)
         return object_paths
 
-    def _convert_object_paths_to_object_ids(self, paths: List[str]) -> List[UUID]:
+    @staticmethod
+    def _convert_object_paths_to_object_ids(paths: List[str]) -> List[UUID]:
         """Convert MinIO object paths to object IDs."""
         object_names = [x.split("/")[-1] for x in paths]
         object_names = [x.split(".")[0] for x in object_names]
