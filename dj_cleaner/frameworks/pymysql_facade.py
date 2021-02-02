@@ -34,3 +34,7 @@ class PyMySQLFacade:
                 cursor.execute(sql)
                 result = cursor.fetchall()
                 return result  # type: ignore
+
+    def __repr__(self) -> str:
+        """Return a string representation of the object."""
+        return f"{self.__class__.__name__}(config={self.config})"

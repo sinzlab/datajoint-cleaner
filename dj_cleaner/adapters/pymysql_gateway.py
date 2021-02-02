@@ -21,3 +21,7 @@ class PyMySQLGateway(AbstractDatabaseGateway):
         hashes = self.facade.execute(sql)
         object_ids = {UUID(bytes=h["hash"]) for h in hashes}
         return object_ids
+
+    def __repr__(self) -> str:
+        """Return a string representation of the object."""
+        return f"{self.__class__.__name__}(facade={self.facade}, config={self.config})"

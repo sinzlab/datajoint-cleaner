@@ -37,3 +37,7 @@ class MinIOFacade:
         errors = self.client.remove_objects(bucket_name, delete_object_list=delete_object_list)
         for error in errors:
             print(error)
+
+    def __repr__(self) -> str:
+        """Return a string representation of the object."""
+        return f"{self.__class__.__name__}(config={self.config})"

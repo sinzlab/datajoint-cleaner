@@ -5,7 +5,7 @@ from .abstract import UseCase
 from .interfaces import AbstractDatabaseGateway, AbstractExternalGateway
 
 
-class Clean(UseCase):
+class Clean(UseCase):  # pylint: disable=too-few-public-methods
     """Clean use-case."""
 
     def __init__(self, db_gateway: AbstractDatabaseGateway, external_gateway: AbstractExternalGateway) -> None:
@@ -19,3 +19,7 @@ class Clean(UseCase):
         db_object_ids = self.db_gateway.get_ids()
         to_be_deleted_object_ids = external_object_ids - db_object_ids
         self.external_gateway.delete_objects(to_be_deleted_object_ids)
+
+    def __repr__(self) -> str:
+        """Return a string representation of the object."""
+        return f"{self.__class__.__name__}(db_gateway={self.db_gateway}, external_gateway={self.external_gateway})"

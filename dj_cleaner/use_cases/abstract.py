@@ -12,3 +12,7 @@ class UseCase(ABC):
     @abstractmethod
     def _execute(self) -> None:
         """Execute the use-case."""
+
+    @abstractmethod
+    def __repr__(self) -> str:
+        """Return a string representation of the object."""

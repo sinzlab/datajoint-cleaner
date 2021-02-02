@@ -49,3 +49,7 @@ class MinIOGateway(AbstractExternalGateway):
         """Delete the objects specified by the provided object IDs from the MinIO bucket."""
         object_paths = self._convert_object_ids_to_object_paths(object_ids)
         self.facade.remove_objects(self.config["bucket_name"], object_paths)
+
+    def __repr__(self) -> str:
+        """Return a string representation of the object."""
+        return f"{self.__class__.__name__}(facade={self.facade}, config={self.config})"

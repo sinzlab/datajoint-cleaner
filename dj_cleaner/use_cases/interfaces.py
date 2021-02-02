@@ -11,6 +11,10 @@ class AbstractDatabaseGateway(ABC):
     def get_ids(self) -> Set[UUID]:
         """Get the IDs of entities stored in the database."""
 
+    @abstractmethod
+    def __repr__(self) -> str:
+        """Return a string representation of the object."""
+
 
 class AbstractExternalGateway(ABC):
     """Defines the interface of the external gateway as expected by the use-cases."""
@@ -22,3 +26,7 @@ class AbstractExternalGateway(ABC):
     @abstractmethod
     def delete_objects(self, object_ids: Set[UUID]) -> None:
         """Delete the objects specified by the provided object IDs from the external store."""
+
+    @abstractmethod
+    def __repr__(self) -> str:
+        """Return a string representation of the object."""
