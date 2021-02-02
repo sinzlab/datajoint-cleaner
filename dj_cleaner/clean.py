@@ -2,10 +2,23 @@
 from __future__ import annotations
 
 import os
+from abc import ABC, abstractmethod
 from typing import Dict
 
 
-class Clean:
+class UseCase(ABC):
+    """Abstract base class for all use-cases."""
+
+    def __call__(self) -> None:
+        """Execute the use-case."""
+        self._execute()
+
+    @abstractmethod
+    def _execute(self) -> None:
+        """Execute the use-case."""
+
+
+class Clean(UseCase):
     """Clean use-case."""
 
     def __init__(self, config: Dict[str, str], db_gateway, external_gateway) -> None:
@@ -14,7 +27,7 @@ class Clean:
         self.db_gateway = db_gateway
         self.external_gateway = external_gateway
 
-    def __call__(self) -> None:
+    def _execute(self) -> None:
         """Clean up external objects."""
         self.config.update(
             {
