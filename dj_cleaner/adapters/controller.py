@@ -3,6 +3,7 @@ import os
 from typing import Dict
 
 from ..use_cases.abstract import UseCase
+from ..use_cases.clean import CleanRequestModel
 
 
 class Controller:
@@ -31,7 +32,7 @@ class Controller:
                 "store_name": os.environ["DB_STORE_NAME"],
             }
         )
-        self.use_cases["clean"]()
+        self.use_cases["clean"](CleanRequestModel())
 
     def __repr__(self) -> str:
         """Return a string representation of the object."""
