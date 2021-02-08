@@ -5,8 +5,10 @@ from pymysql import connect
 from pymysql.connections import Connection
 from pymysql.cursors import DictCursor
 
+from ..adapters.interfaces import AbstractPyMySQLFacade
 
-class PyMySQLFacade:
+
+class PyMySQLFacade(AbstractPyMySQLFacade):
     """Facade for the PyMySQL interface."""
 
     def __init__(self, config: Dict[str, str]) -> None:

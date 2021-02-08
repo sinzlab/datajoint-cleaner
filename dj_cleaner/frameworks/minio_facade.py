@@ -4,8 +4,10 @@ from typing import Dict, List, Optional, Set
 from minio import Minio
 from minio.deleteobjects import DeleteObject
 
+from ..adapters.interfaces import AbstractMinIOFacade
 
-class MinIOFacade:
+
+class MinIOFacade(AbstractMinIOFacade):
     """Facade of the MinIO interface."""
 
     def __init__(self, config: Dict[str, str]) -> None:
