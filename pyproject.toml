@@ -13,9 +13,6 @@ dev-dependencies = [
     "docker~=4.4",
     "datajoint~=0.12",
     "pytest~=6.2",
-    "parso<0.8.0",
-    "jedi<0.18.0",
-    "python-language-server~=0.36",
 ]
 requires-python = ">=3.9"
 dynamic = ["classifiers"]
