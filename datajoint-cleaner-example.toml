@@ -1,0 +1,18 @@
+[database_servers.my_db_server]
+host = "192.156.3.65"
+user = "me"
+password = "mypassword"
+
+[minio_servers.my_minio_server]
+endpoint = "192.543.5.61"
+access_key = "my_access_key"
+secret_key = "my_secret_key"
+secure = true
+
+[[cleaning_runs]]
+database = "my_db_server"
+schema = "my_schema"
+store = "my_store"
+minio = "my_minio_server"
+bucket = "my_bucket"
+location = "my_location"
