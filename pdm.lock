@@ -346,7 +346,7 @@ summary = "Python 2 and 3 compatibility utilities"
 
 [[package]]
 name = "toml"
-sections = ["dev"]
+sections = ["default", "dev"]
 version = "0.10.2"
 summary = "Python Library for Tom's Obvious, Minimal Language"
 
@@ -388,7 +388,7 @@ dependencies = [
 
 [metadata]
 lock_version = "2"
-content_hash = "sha256:4b3c163f3e6ce157143a12830ba585bae5e29382fca7a057e256304b196d0c90"
+content_hash = "sha256:8bfbb162024d6a090d6237b316b855e8bcbf9fb691f006ca0dfc270bce58d8a2"
 
 [metadata.files]
 "appnope 0.1.2" = [
