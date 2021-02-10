@@ -6,7 +6,7 @@ class CleanRequestModel(AbstractRequestModel):
     """Request model for the clean use-case."""
 
 
-class Clean(AbstractUseCase[CleanRequestModel]):  # pylint: disable=too-few-public-methods
+class Clean(AbstractUseCase[CleanRequestModel]):  # pylint: disable=too-few-public-methods, unsubscriptable-object
     """Clean use-case."""
 
     def _execute(self, request_model: CleanRequestModel) -> None:
