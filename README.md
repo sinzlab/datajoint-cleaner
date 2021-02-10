@@ -35,10 +35,10 @@ secure = true
 ### Specifying Cleaning Runs
 Individual cleaning runs are specified in the top-level array of tables called `cleaning_runs`. Each table in the array corresponds to a distinct cleaning run and must have the following keys:
 
-* `database`: Name of a database server specified in the `databases` table
+* `database`: Name of a database server specified in the `database_servers` table
 * `schema`: Name of a schema on said database server
 * `store`: Name of a DataJoint store for which an external table exists in said schema
-* `minio`: Name of a MinIO server specified in the `minios` table
+* `minio`: Name of a MinIO server specified in the `minio_servers` table
 * `bucket`: Name of a bucket on said MinIO server
 * `location`: Location of externally stored objects in said bucket
 
