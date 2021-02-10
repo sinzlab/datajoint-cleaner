@@ -1,4 +1,4 @@
-"""Contains the controller."""
+"""Contains the TOML controller."""
 import os
 from typing import Dict
 
@@ -6,8 +6,8 @@ from ..use_cases.abstract import UseCase
 from ..use_cases.clean import CleanRequestModel
 
 
-class Controller:
-    """Controls the execution of use-cases."""
+class TOMLController:
+    """Controls the execution of use-cases using TOML formatted configuration information."""
 
     def __init__(self, config: Dict[str, str], use_cases: Dict[str, UseCase]) -> None:
         """Initialize Controller."""
