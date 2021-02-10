@@ -1,5 +1,6 @@
 import os
 import time
+from pathlib import Path
 from tempfile import TemporaryDirectory
 from uuid import UUID
 
@@ -29,7 +30,7 @@ MINIO_HEALTHCHECK_INTERVAL = 60
 MINIO_HEALTHCHECK_RETRIES = 1
 MINIO_HEALTHCHECK_TIMEOUT = 5
 MINIO_LOCATION = "dj-store"
-MINIO_SECURE = "False"
+MINIO_SECURE = "false"
 
 DB_STORE_NAME = "external"
 BUCKET_NAME = "my-bucket"
@@ -202,17 +203,32 @@ def delete_entries(table, filepaths, external_table):
 
 @pytest.fixture
 def configure_dj_cleaner():
-    os.environ["MINIO_ENDPOINT"] = MINIO_ENDPOINT + ":" + str(MINIO_PORT)
-    os.environ["MINIO_ACCESS_KEY"] = MINIO_ACCESS_KEY
-    os.environ["MINIO_SECRET_KEY"] = MINIO_SECRET_KEY
-    os.environ["MINIO_BUCKET_NAME"] = BUCKET_NAME
-    os.environ["MINIO_LOCATION"] = MINIO_LOCATION
-    os.environ["MINIO_SECURE"] = MINIO_SECURE
-    os.environ["DB_SCHEMA_NAME"] = SCHEMA_NAME
-    os.environ["DB_HOST"] = DB_HOST
-    os.environ["DB_USER"] = DB_USER
-    os.environ["DB_PASSWORD"] = DB_PASSWORD
-    os.environ["DB_STORE_NAME"] = DB_STORE_NAME
+    config_string = f"""
+    [database_servers.db_server]
+    host = "{DB_HOST}"
+    user = "{DB_USER}"
+    password = "{DB_PASSWORD}"
+
+    [minio_servers.minio_server]
+    endpoint = "{MINIO_ENDPOINT + ":" + str(MINIO_PORT)}"
+    access_key = "{MINIO_ACCESS_KEY}"
+    secret_key = "{MINIO_SECRET_KEY}"
+    secure = {MINIO_SECURE}
+
+    [[cleaning_runs]]
+    database = "db_server"
+    schema = "{SCHEMA_NAME}"
+    store = "{DB_STORE_NAME}"
+    minio = "minio_server"
+    bucket = "{BUCKET_NAME}"
+    location = "{MINIO_LOCATION}"
+    """
+
+    config_file_path = Path("datajoint-cleaner.toml")
+    with open(config_file_path, "w") as config_file:
+        config_file.write(config_string)
+    yield
+    os.remove(config_file_path)
 
 
 @pytest.fixture
