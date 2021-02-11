@@ -1,12 +1,17 @@
 """Contains the abstract base class all use-cases must inherit."""
 from abc import ABC, abstractmethod
-from typing import Generic, TypeVar
+from dataclasses import dataclass
+from typing import Any, Generic, TypeVar
 
 from .interfaces import AbstractDatabaseGateway, AbstractExternalGateway
 
 
+@dataclass
 class AbstractRequestModel(ABC):
     """Abstract base class for all request-models."""
+
+    db_config: Any
+    external_config: Any
 
 
 RequestModel = TypeVar("RequestModel", bound=AbstractRequestModel)
@@ -22,6 +27,8 @@ class AbstractUseCase(ABC, Generic[RequestModel]):
 
     def __call__(self, request_model: RequestModel) -> None:
         """Execute the use-case."""
+        self.db_gateway.configure(request_model.db_config)
+        self.external_gateway.configure(request_model.external_config)
         self._execute(request_model)
 
     @abstractmethod

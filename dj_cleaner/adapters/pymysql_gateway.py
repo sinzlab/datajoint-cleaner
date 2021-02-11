@@ -1,5 +1,5 @@
 """Contains the PyMySQL gateway."""
-from typing import Dict, Set
+from typing import Any, Dict, Set
 from uuid import UUID
 
 from ..use_cases.interfaces import AbstractDatabaseGateway
@@ -14,11 +14,15 @@ class PyMySQLGateway(AbstractDatabaseGateway):
         self.facade = facade
         self.config = config
 
+    def configure(self, config: Any) -> None:
+        """Configure the gateway."""
+        self.facade.configure(config)
+
     def get_ids(self) -> Set[UUID]:
         """Get the IDs of entities stored in the external table."""
         external_table_name = "~external_" + self.config["store_name"]
         sql = f"SELECT `hash` from `{external_table_name}`"
-        hashes = self.facade.execute(sql)
+        hashes = self.facade.execute(self.config["schema_name"], sql)
         object_ids = {UUID(bytes=h["hash"]) for h in hashes}
         return object_ids
 

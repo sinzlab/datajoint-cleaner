@@ -1,10 +1,18 @@
 """Contains the definitions of interfaces as expected by the use-cases."""
 from abc import ABC, abstractmethod
-from typing import Set
+from typing import Any, Set
 from uuid import UUID
 
 
-class AbstractDatabaseGateway(ABC):
+class AbstractGateway(ABC):
+    """Abstract base class for all gateways."""
+
+    @abstractmethod
+    def configure(self, config: Any) -> None:
+        """Configure the gateway."""
+
+
+class AbstractDatabaseGateway(AbstractGateway):
     """Defines the interface of the database gateway as expected by the use-cases."""
 
     @abstractmethod
@@ -12,7 +20,7 @@ class AbstractDatabaseGateway(ABC):
         """Get the IDs of entities stored in the database."""
 
 
-class AbstractExternalGateway(ABC):
+class AbstractExternalGateway(AbstractGateway):
     """Defines the interface of the external gateway as expected by the use-cases."""
 
     @abstractmethod

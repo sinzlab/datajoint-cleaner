@@ -35,8 +35,13 @@ def store_name():
 
 
 @pytest.fixture
-def config(store_name):
-    return {"store_name": store_name}
+def schema_name():
+    return "my_schema"
+
+
+@pytest.fixture
+def config(store_name, schema_name):
+    return {"store_name": store_name, "schema_name": schema_name}
 
 
 @pytest.fixture
@@ -52,10 +57,10 @@ def test_if_config_is_stored_as_instance_attribute(gateway, config):
     assert gateway.config is config
 
 
-def test_if_execute_method_of_facade_is_called_correctly_when_getting_ids(gateway, facade, store_name):
+def test_if_execute_method_of_facade_is_called_correctly_when_getting_ids(gateway, facade, store_name, schema_name):
     gateway.get_ids()
     external_store_name = "~external_" + store_name
-    facade.execute.assert_called_once_with(f"SELECT `hash` from `{external_store_name}`")
+    facade.execute.assert_called_once_with(schema_name, f"SELECT `hash` from `{external_store_name}`")
 
 
 def test_if_correct_object_ids_are_returned(gateway, hashes):

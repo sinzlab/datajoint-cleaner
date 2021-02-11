@@ -216,10 +216,10 @@ def configure_dj_cleaner():
     secure = {MINIO_SECURE}
 
     [[cleaning_runs]]
-    database = "db_server"
+    database_server = "db_server"
+    minio_server = "minio_server"
     schema = "{SCHEMA_NAME}"
     store = "{DB_STORE_NAME}"
-    minio = "minio_server"
     bucket = "{BUCKET_NAME}"
     location = "{MINIO_LOCATION}"
     """

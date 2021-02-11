@@ -1,5 +1,5 @@
 """Contains the MinIO gateway."""
-from typing import Dict, List, Set
+from typing import Any, Dict, List, Set
 from uuid import UUID
 
 from ..use_cases.interfaces import AbstractExternalGateway
@@ -14,6 +14,10 @@ class MinIOGateway(AbstractExternalGateway):
         self.facade = facade
         self.config = config
         self._object_id_to_object_path_mapping: Dict[UUID, str] = {}
+
+    def configure(self, config: Any) -> None:
+        """Configure the gateway."""
+        self.facade.configure(config)
 
     def get_object_ids(self) -> Set[UUID]:
         """Get the IDs of objects stored in the MinIO bucket."""

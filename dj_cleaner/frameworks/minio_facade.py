@@ -1,31 +1,49 @@
 """Contains the facade of the MinIO interface."""
-from typing import Dict, List, Optional, Set
+from typing import Dict, List, Optional, Set, Type, Union
 
 from minio import Minio
 from minio.deleteobjects import DeleteObject
 
-from ..adapters.interfaces import AbstractMinIOFacade
+from ..adapters.interfaces import AbstractFacadeConfig, AbstractMinIOFacade
 
 
-class MinIOFacade(AbstractMinIOFacade):
+class MinIOFacadeConfig(AbstractFacadeConfig):
+    """Configuration for the MinIO facade."""
+
+    def __init__(self, endpoint: str, access_key: str, secret_key: str, secure: bool) -> None:
+        """Initialize MinIOFacadeConfig."""
+        self.endpoint = endpoint
+        self.access_key = access_key
+        self.secret_key = secret_key
+        self.secure = secure
+
+    def to_dict(self) -> Dict[str, Union[str, bool]]:
+        """Return configuration as dictionary."""
+        return {
+            "endpoint": self.endpoint,
+            "access_key": self.access_key,
+            "secret_key": self.secret_key,
+            "secure": self.secure,
+        }
+
+
+class MinIOFacade(AbstractMinIOFacade[Type[MinIOFacadeConfig]]):  # pylint: disable=unsubscriptable-object
     """Facade of the MinIO interface."""
 
-    def __init__(self, config: Dict[str, str]) -> None:
+    def __init__(self) -> None:
         """Initialize MinIOFacade."""
-        self.config = config
         self._client: Optional[Minio] = None  # pylint: disable=unsubscriptable-object
 
     @property
     def client(self) -> Minio:
         """Return already instantiated MinIO client if possible or instantiate and return a new one."""
         if not self._client:
-            self._client = Minio(
-                self.config["endpoint"],
-                access_key=self.config["access_key"],
-                secret_key=self.config["secret_key"],
-                secure=self.config["secure"] == "True",
-            )
+            raise RuntimeError(f"{self.__class__.__name__} is not configured")
         return self._client
+
+    def configure(self, config: MinIOFacadeConfig) -> None:
+        """Configure the facade."""
+        self._client = Minio(**config.to_dict())
 
     def get_object_paths(self, bucket_name: str, prefix: str) -> List[str]:
         """Get all paths that match the provided prefix of MinIO objects from the bucket."""
@@ -42,4 +60,4 @@ class MinIOFacade(AbstractMinIOFacade):
 
     def __repr__(self) -> str:
         """Return a string representation of the object."""
-        return f"{self.__class__.__name__}(config={self.config})"
+        return f"{self.__class__.__name__}()"
