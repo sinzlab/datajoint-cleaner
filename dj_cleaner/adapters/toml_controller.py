@@ -21,7 +21,8 @@ class TOMLController:
         config = self.facade.get_configuration()
         for cleaning_run in config["cleaning_runs"]:
             db_server_config = config["database_servers"][cleaning_run["database_server"]]
-            minio_server_config = config["minio_servers"][cleaning_run["minio_server"]]
+            storage_server_kind, storage_server_name = cleaning_run["storage_server"].split(".")
+            storage_server_config = config["storage_servers"][storage_server_kind][storage_server_name]
             self.config.update(
                 {
                     "bucket_name": cleaning_run["bucket"],
@@ -31,7 +32,7 @@ class TOMLController:
                 }
             )
             db_config = FACADE_CONFIGS["database"](**db_server_config)
-            external_config = FACADE_CONFIGS["minio"](**minio_server_config)
+            external_config = FACADE_CONFIGS[storage_server_kind](**storage_server_config)
             self.use_cases["clean"](CleanRequestModel(db_config, external_config))
 
     def __repr__(self) -> str:

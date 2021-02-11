@@ -209,7 +209,7 @@ def configure_dj_cleaner():
     user = "{DB_USER}"
     password = "{DB_PASSWORD}"
 
-    [minio_servers.minio_server]
+    [storage_servers.minio.minio_server]
     endpoint = "{MINIO_ENDPOINT + ":" + str(MINIO_PORT)}"
     access_key = "{MINIO_ACCESS_KEY}"
     secret_key = "{MINIO_SECRET_KEY}"
@@ -217,7 +217,7 @@ def configure_dj_cleaner():
 
     [[cleaning_runs]]
     database_server = "db_server"
-    minio_server = "minio_server"
+    storage_server = "minio.minio_server"
     schema = "{SCHEMA_NAME}"
     store = "{DB_STORE_NAME}"
     bucket = "{BUCKET_NAME}"
