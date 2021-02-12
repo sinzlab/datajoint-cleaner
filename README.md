@@ -1,6 +1,7 @@
 # datajoint-cleaner
 ![Test](https://github.com/cblessing24/datajoint-cleaner/workflows/Test/badge.svg)
 ![Black](https://github.com/cblessing24/datajoint-cleaner/workflows/Black/badge.svg)
+![Mypy](https://github.com/cblessing24/datajoint-cleaner/workflows/Mypy/badge.svg)
 
 ## Configuration
 The cleaner will look for a TOML file called `datajoint-cleaner.toml` in the current working directory to configure itself. The configuration file must have two top-level tables called `database_servers` and `storage_servers` and an array of tables called `cleaning_runs`. 
