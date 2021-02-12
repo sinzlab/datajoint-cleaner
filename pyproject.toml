@@ -22,13 +22,16 @@ license = {text = "GPL-3.0-only"}
 [project.urls]
 homepage = "https://github.com/sinzlab/datajoint-cleaner"
 
-[tool]
-[tool.pdm]
 [tool.black]
 line-length = 120
+
 [tool.pylint.master]
 max-line-length = 120
 ignore-patterns = "test_.*?\\.py"
+
+[tool.coverage.run]
+branch = true
+source = ["dj_cleaner"]
 
 [build-system]
 requires = ["pdm-pep517"]
