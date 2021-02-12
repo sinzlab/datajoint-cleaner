@@ -2,7 +2,7 @@ from unittest.mock import MagicMock, create_autospec
 from uuid import UUID
 
 import pytest
-from dj_cleaner.adapters.pymysql_gateway import PyMySQLGateway
+from dj_cleaner.adapters.pymysql_gateway import PyMySQLGateway, PyMySQLLocation
 from dj_cleaner.frameworks.pymysql_facade import PyMySQLFacade
 from dj_cleaner.use_cases.interfaces import AbstractDatabaseGateway
 
@@ -40,32 +40,33 @@ def schema_name():
 
 
 @pytest.fixture
-def config(store_name, schema_name):
-    return {"store_name": store_name, "schema_name": schema_name}
+def location(schema_name, store_name):
+    location = create_autospec(PyMySQLLocation)
+    location.schema_name = schema_name
+    location.store_name = store_name
+    return location
 
 
 @pytest.fixture
-def gateway(facade, config):
-    return PyMySQLGateway(facade=facade, config=config)
+def gateway(facade):
+    return PyMySQLGateway(facade=facade)
 
 
 def test_if_facade_is_stored_as_instance_attribute(gateway, facade):
     assert gateway.facade is facade
 
 
-def test_if_config_is_stored_as_instance_attribute(gateway, config):
-    assert gateway.config is config
-
-
-def test_if_execute_method_of_facade_is_called_correctly_when_getting_ids(gateway, facade, store_name, schema_name):
-    gateway.get_ids()
+def test_if_execute_method_of_facade_is_called_correctly_when_getting_ids(
+    gateway, facade, location, store_name, schema_name
+):
+    gateway.get_ids(location)
     external_store_name = "~external_" + store_name
     facade.execute.assert_called_once_with(schema_name, f"SELECT `hash` from `{external_store_name}`")
 
 
-def test_if_correct_object_ids_are_returned(gateway, hashes):
-    assert gateway.get_ids() == {UUID(bytes=h["hash"]) for h in hashes}
+def test_if_correct_object_ids_are_returned(gateway, hashes, location):
+    assert gateway.get_ids(location) == {UUID(bytes=h["hash"]) for h in hashes}
 
 
-def test_repr(gateway, facade, config):
-    assert repr(gateway) == f"PyMySQLGateway(facade={facade}, config={config})"
+def test_repr(gateway, facade):
+    assert repr(gateway) == f"PyMySQLGateway(facade={facade})"
