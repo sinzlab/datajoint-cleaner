@@ -1,4 +1,4 @@
-"""Initialize package."""
+"""A tool for cleaning up external DataJoint stores."""
 from pathlib import Path
 
 from .adapters import FACADE_CONFIGS
