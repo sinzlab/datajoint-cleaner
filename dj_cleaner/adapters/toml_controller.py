@@ -1,5 +1,5 @@
 """Contains the TOML controller."""
-from typing import Dict
+from collections.abc import Mapping
 
 from ..use_cases.abstract import UseCase
 from ..use_cases.clean import CleanRequestModel
@@ -12,7 +12,7 @@ from .pymysql_gateway import PyMySQLLocation
 class TOMLController:
     """Controls the execution of use-cases using TOML formatted configuration information."""
 
-    def __init__(self, facade: TOMLFacade, use_cases: Dict[str, UseCase]) -> None:
+    def __init__(self, facade: TOMLFacade, use_cases: Mapping[str, UseCase]) -> None:
         """Initialize Controller."""
         self.facade = facade
         self.use_cases = use_cases

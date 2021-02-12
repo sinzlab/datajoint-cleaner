@@ -8,7 +8,7 @@ class AbstractFacadeConfig(ABC):
 
     @abstractmethod
     def __init__(self, **kwargs) -> None:
-        """Initialize AbstrctFacadeConfig."""
+        """Initialize AbstractFacadeConfig."""
 
 
 FacadeConfig = TypeVar("FacadeConfig", bound=Type[AbstractFacadeConfig])

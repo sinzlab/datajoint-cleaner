@@ -1,4 +1,5 @@
 """Contains the MinIO gateway."""
+from collections.abc import Sequence
 from dataclasses import dataclass
 from typing import Any, Dict, List, Set
 from uuid import UUID
@@ -42,14 +43,16 @@ class MinIOGateway(AbstractExternalGateway):
         return object_paths
 
     @staticmethod
-    def _convert_object_paths_to_object_ids(paths: List[str]) -> List[UUID]:
+    def _convert_object_paths_to_object_ids(paths: Sequence[str]) -> List[UUID]:
         """Convert MinIO object paths to object IDs."""
         object_names = [x.split("/")[-1] for x in paths]
         object_names = [x.split(".")[0] for x in object_names]
         object_ids = [UUID(x) for x in object_names]
         return object_ids
 
-    def _add_object_ids_and_object_paths_to_mapping(self, object_ids: List[UUID], object_paths: List[str]) -> None:
+    def _add_object_ids_and_object_paths_to_mapping(
+        self, object_ids: Sequence[UUID], object_paths: Sequence[str]
+    ) -> None:
         for object_id, object_path in zip(object_ids, object_paths):
             self._object_id_to_object_path_mapping[object_id] = object_path
 
@@ -58,7 +61,7 @@ class MinIOGateway(AbstractExternalGateway):
         object_paths = {self._object_id_to_object_path_mapping[x] for x in object_ids}
         return object_paths
 
-    def delete_objects(self, location, object_ids: Set[UUID]) -> None:
+    def delete_objects(self, location: MinIOLocation, object_ids: Set[UUID]) -> None:
         """Delete the objects specified by the provided object IDs from the MinIO bucket."""
         object_paths = self._convert_object_ids_to_object_paths(object_ids)
         self.facade.remove_objects(location.bucket_name, object_paths)
