@@ -2,14 +2,9 @@
 name = "datajoint-cleaner"
 version = "0.0"
 description = "A tool for cleaning up external DataJoint stores"
-authors = [
-    {name = "Christoph Blessing", email = "chris.blessing@protonmail.com"},
-]
-dependencies = [
-    "minio~=7.0",
-    "pymysql~=1.0",
-    "toml~=0.10",
-]
+readme = "README.md"
+authors = [{ name = "Christoph Blessing", email = "chris.blessing@protonmail.com" }]
+dependencies = ["minio~=7.0", "pymysql~=1.0", "toml~=0.10"]
 dev-dependencies = [
     "docker~=4.4",
     "datajoint~=0.12",
@@ -18,7 +13,7 @@ dev-dependencies = [
 ]
 requires-python = ">=3.9"
 dynamic = ["classifiers"]
-license = {text = "GPL-3.0-only"}
+license = { text = "GPL-3.0-only" }
 
 [project.urls]
 homepage = "https://github.com/sinzlab/datajoint-cleaner"
@@ -33,7 +28,6 @@ ignore-patterns = "test_.*?\\.py"
 [tool.coverage.run]
 branch = true
 source = ["dj_cleaner"]
-
 
 [tool.pdm]
 [build-system]
