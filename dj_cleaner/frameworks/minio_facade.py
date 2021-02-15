@@ -1,5 +1,5 @@
 """Contains the facade of the MinIO interface."""
-from typing import Dict, List, Optional, Set, Type, Union
+from typing import Dict, List, Optional, Set, Union
 
 from minio import Minio
 from minio.deleteobjects import DeleteObject
@@ -27,7 +27,7 @@ class MinIOFacadeConfig(AbstractFacadeConfig):
         }
 
 
-class MinIOFacade(AbstractMinIOFacade[Type[MinIOFacadeConfig]]):  # pylint: disable=unsubscriptable-object
+class MinIOFacade(AbstractMinIOFacade[MinIOFacadeConfig]):  # pylint: disable=unsubscriptable-object
     """Facade of the MinIO interface."""
 
     def __init__(self) -> None:

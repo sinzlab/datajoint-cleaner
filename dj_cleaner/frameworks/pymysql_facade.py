@@ -1,5 +1,5 @@
 """Contains the facade of the PyMySQL interface."""
-from typing import Any, Dict, List, Optional, Type
+from typing import Any, Dict, List, Optional
 
 from pymysql import connect
 from pymysql.connections import Connection
@@ -22,7 +22,7 @@ class PyMySQLFacadeConfig(AbstractFacadeConfig):
         return {"host": self.host, "user": self.user, "password": self.password}
 
 
-class PyMySQLFacade(AbstractPyMySQLFacade[Type[PyMySQLFacadeConfig]]):
+class PyMySQLFacade(AbstractPyMySQLFacade[PyMySQLFacadeConfig]):
     """Facade for the PyMySQL interface."""
 
     def __init__(self) -> None:

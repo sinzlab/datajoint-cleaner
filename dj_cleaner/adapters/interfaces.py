@@ -1,6 +1,6 @@
 """Contains the definitions of interfaces as expected by the adapters."""
 from abc import ABC, abstractmethod
-from typing import Any, Dict, Generic, List, Set, Type, TypeVar
+from typing import Any, Dict, Generic, List, Set, TypeVar
 
 
 class AbstractFacadeConfig(ABC):
@@ -11,14 +11,14 @@ class AbstractFacadeConfig(ABC):
         """Initialize AbstractFacadeConfig."""
 
 
-FacadeConfig = TypeVar("FacadeConfig", bound=Type[AbstractFacadeConfig])
+FacadeConfig = TypeVar("FacadeConfig", bound=AbstractFacadeConfig)
 
 
 class AbstractFacade(ABC, Generic[FacadeConfig]):
     """Abstract base class for all facades."""
 
     @abstractmethod
-    def configure(self, config: Any) -> None:
+    def configure(self, config: FacadeConfig) -> None:
         """Configure the facade."""
 
 
