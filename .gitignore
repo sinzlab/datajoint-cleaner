@@ -130,3 +130,6 @@ dmypy.json
 
 # Python dependency master
 .pdm.toml
+
+# Visual studio code
+.vscode/
