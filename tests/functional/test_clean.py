@@ -1,4 +1,5 @@
 import os
+import subprocess
 import time
 from pathlib import Path
 from tempfile import TemporaryDirectory
@@ -7,7 +8,6 @@ from uuid import UUID
 import datajoint as dj
 import docker
 import pytest
-from dj_cleaner import controller
 from minio import Minio
 
 HEALTH_CHECK_MAX_RETRIES = 60
@@ -257,5 +257,5 @@ def test_if_external_object_ids_match_external_table_ids_after_cleaning(
 ):
     insert_entries([1, 2, 3, 4, 5])
     delete_entries([1, 3])
-    controller.clean()
+    subprocess.run(["python", "-m", "dj_cleaner"])
     assert get_external_object_ids() == get_external_table_ids()
