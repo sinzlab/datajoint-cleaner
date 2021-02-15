@@ -1,10 +1,10 @@
 """Contains the TOML controller."""
 from collections.abc import Mapping
+from typing import Any, Dict
 
 from ..use_cases.abstract import UseCase
 from ..use_cases.clean import CleanRequestModel
 from . import FACADE_CONFIGS
-from .interfaces import TOMLFacade
 from .minio_gateway import MinIOLocation
 from .pymysql_gateway import PyMySQLLocation
 
@@ -12,14 +12,12 @@ from .pymysql_gateway import PyMySQLLocation
 class TOMLController:
     """Controls the execution of use-cases using TOML formatted configuration information."""
 
-    def __init__(self, facade: TOMLFacade, use_cases: Mapping[str, UseCase]) -> None:
+    def __init__(self, use_cases: Mapping[str, UseCase]) -> None:
         """Initialize Controller."""
-        self.facade = facade
         self.use_cases = use_cases
 
-    def clean(self) -> None:
+    def clean(self, config: Dict[str, Any]) -> None:
         """Execute the clean use-case."""
-        config = self.facade.get_configuration()
         for cleaning_run in config["cleaning_runs"]:
             db_server_config = config["database_servers"][cleaning_run["database_server"]]
             storage_server_kind, storage_server_name = cleaning_run["storage_server"].split(".")

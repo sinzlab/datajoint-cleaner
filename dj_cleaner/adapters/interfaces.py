@@ -46,14 +46,3 @@ class AbstractMinIOFacade(AbstractFacade[FacadeConfig]):
 
 
 MinIOFacade = TypeVar("MinIOFacade", bound=AbstractMinIOFacade)
-
-
-class AbstractTOMLFacade(ABC):
-    """Defines the interface of the TOML facade as expected by the TOML controller."""
-
-    @abstractmethod
-    def get_configuration(self) -> Dict[str, Any]:
-        """Get the configuration information from the TOML file."""
-
-
-TOMLFacade = TypeVar("TOMLFacade", bound=AbstractTOMLFacade)
