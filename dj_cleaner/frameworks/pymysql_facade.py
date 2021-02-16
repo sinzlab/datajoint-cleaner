@@ -1,4 +1,5 @@
 """Contains the facade of the PyMySQL interface."""
+import logging
 from typing import Any, Dict, List, Optional, TypedDict
 
 from pymysql import connect
@@ -6,6 +7,8 @@ from pymysql.connections import Connection
 from pymysql.cursors import DictCursor
 
 from ..adapters.interfaces import AbstractPyMySQLFacade
+
+LOGGER = logging.getLogger(__name__)
 
 
 class PyMySQLFacadeConfig(TypedDict):  # pylint: disable=inherit-non-class
@@ -33,15 +36,18 @@ class PyMySQLFacade(AbstractPyMySQLFacade):
     def configure(self, config: PyMySQLFacadeConfig) -> None:
         """Configure the facade."""
         self._connection = connect(cursorclass=DictCursor, **config)
+        LOGGER.info(f"Established connection to PyMySQL server at {config['host']}")
 
     def execute(self, database: str, sql: str) -> List[Dict[str, Any]]:
         """Execute SQL against the provided database and return the result."""
+        LOGGER.info(f"Executing sql {sql} against database {database}...")
         self.connection.select_db(database)
         with self.connection:  # type: ignore
             with self.connection.cursor() as cursor:
                 cursor.execute(sql)
                 result = cursor.fetchall()
                 return result  # type: ignore
+        LOGGER.info("Done!")
 
     def __repr__(self) -> str:
         """Return a string representation of the object."""

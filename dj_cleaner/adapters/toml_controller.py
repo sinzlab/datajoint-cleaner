@@ -1,4 +1,5 @@
 """Contains the TOML controller."""
+import logging
 from collections.abc import Mapping
 from typing import Any, Dict
 
@@ -6,6 +7,8 @@ from ..use_cases.abstract import UseCase
 from ..use_cases.clean import CleanRequestModel
 from .minio_gateway import MinIOLocation
 from .pymysql_gateway import PyMySQLLocation
+
+LOGGER = logging.getLogger(__name__)
 
 
 class TOMLController:
@@ -17,7 +20,8 @@ class TOMLController:
 
     def clean(self, config: Dict[str, Any]) -> None:
         """Execute the clean use-case."""
-        for cleaning_run in config["cleaning_runs"]:
+        for index, cleaning_run in enumerate(config["cleaning_runs"]):
+            LOGGER.info(f"Executing cleaning run number {index}...")
             db_server_config = config["database_servers"][cleaning_run["database_server"]]
             storage_server_kind, storage_server_name = cleaning_run["storage_server"].split(".")
             storage_server_config = config["storage_servers"][storage_server_kind][storage_server_name]
@@ -26,6 +30,7 @@ class TOMLController:
             self.use_cases["clean"](
                 CleanRequestModel(db_server_config, storage_server_config, db_location, external_location)
             )
+            LOGGER.info("Done!")
 
     def __repr__(self) -> str:
         """Return a string representation of the object."""

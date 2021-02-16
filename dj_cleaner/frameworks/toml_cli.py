@@ -8,6 +8,8 @@ import toml
 
 from ..adapters.toml_controller import TOMLController
 
+LOGGER = logging.getLogger(__name__)
+
 
 class TOMLCLI:
     """Command line interface using TOML configuration file."""
@@ -31,8 +33,11 @@ class TOMLCLI:
         """Execute clean use-case."""
         parsed_args = self.parser.parse_args(args)
         self._configure_logging(parsed_args)
+        LOGGER.info("Starting cleaning")
         config = dict(toml.load(parsed_args.config_file))
+        LOGGER.info(f"Loaded TOML config file from {parsed_args.config_file}")
         self.controller.clean(config)
+        LOGGER.info("Finished cleaning")
 
     @staticmethod
     def _configure_logging(parsed_args) -> None:
