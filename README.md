@@ -4,9 +4,27 @@
 ![Black](https://github.com/cblessing24/datajoint-cleaner/workflows/Black/badge.svg)
 ![Mypy](https://github.com/cblessing24/datajoint-cleaner/workflows/Mypy/badge.svg)
 
+## Installation
+
+### Recommended installation method
+
+To avoid messing up the system Python environment, the most recommended way to install datajoint-cleaner is via [pipx](https://pypi.org/project/pipx/):
+
+```bash
+pipx install datajoint-cleaner
+```
+
+### Other installation methods
+
+Install datajoint-cleaner into user site with `pip`:
+
+```bash
+pip install --user datajoint-cleaner
+```
+
 ## Configuration
 
-The cleaner will look for a TOML file called `datajoint-cleaner.toml` in the current working directory to configure itself. The configuration file must have two top-level tables called `database_servers` and `storage_servers` and an array of tables called `cleaning_runs`.
+datajoint-cleaner will look for a TOML file called `datajoint-cleaner.toml` in the current working directory (by default) to configure itself. The configuration file must have two top-level tables called `database_servers` and `storage_servers` and an array of tables called `cleaning_runs`.
 
 ### Specifying Database Servers
 
@@ -60,4 +78,18 @@ store = "my_store"
 storage_server = "minio.my_minio_server"
 bucket = "my_bucket"
 location = "my_location"
+```
+
+## Usage
+
+The cleaning process can be started like so:
+
+```bash
+dj-cleaner
+```
+
+The command above will execute all cleaning runs defined in the configuration file. The `--config-file` option can be used to pass a custom path to a configuration file to datajoint-cleaner:
+
+```bash
+dj-cleaner --config-file /path/to/config/file
 ```
