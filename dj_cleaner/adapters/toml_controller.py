@@ -26,9 +26,9 @@ class TOMLController:
             storage_server_kind, storage_server_name = cleaning_run["storage_server"].split(".")
             storage_server_config = config["storage_servers"][storage_server_kind][storage_server_name]
             db_location = PyMySQLLocation(cleaning_run["schema"], cleaning_run["store"])
-            external_location = MinIOLocation(cleaning_run["schema"], cleaning_run["bucket"], cleaning_run["location"])
+            storage_location = MinIOLocation(cleaning_run["schema"], cleaning_run["bucket"], cleaning_run["location"])
             self.use_cases["clean"](
-                CleanRequestModel(db_server_config, storage_server_config, db_location, external_location)
+                CleanRequestModel(db_server_config, storage_server_config, db_location, storage_location)
             )
             LOGGER.info("Done!")
 

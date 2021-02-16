@@ -4,7 +4,7 @@ from dataclasses import dataclass
 from typing import Any, Dict, List, Set
 from uuid import UUID
 
-from ..use_cases.interfaces import AbstractExternalGateway
+from ..use_cases.interfaces import AbstractStorageGateway
 from .interfaces import MinIOFacade
 
 
@@ -17,7 +17,7 @@ class MinIOLocation:
     location: str
 
 
-class MinIOGateway(AbstractExternalGateway):
+class MinIOGateway(AbstractStorageGateway):
     """Gateway between the MinIO facade and the use-cases."""
 
     def __init__(self, facade: MinIOFacade) -> None:

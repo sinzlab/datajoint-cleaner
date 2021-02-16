@@ -13,17 +13,17 @@ class CleanRequestModel(AbstractRequestModel):
     """Request model for the clean use-case."""
 
     db_location: Any
-    external_location: Any
+    storage_location: Any
 
 
 class Clean(AbstractUseCase[CleanRequestModel]):  # pylint: disable=too-few-public-methods, unsubscriptable-object
     """Clean use-case."""
 
     def _execute(self, request_model: CleanRequestModel) -> None:
-        """Clean up external objects."""
+        """Clean up superfluous objects."""
         LOGGER.info("Executing clean use-case...")
-        external_object_ids = self.external_gateway.get_object_ids(request_model.external_location)
+        storage_object_ids = self.storage_gateway.get_object_ids(request_model.storage_location)
         db_object_ids = self.db_gateway.get_ids(request_model.db_location)
-        to_be_deleted_object_ids = external_object_ids - db_object_ids
-        self.external_gateway.delete_objects(request_model.external_location, to_be_deleted_object_ids)
+        to_be_deleted_object_ids = storage_object_ids - db_object_ids
+        self.storage_gateway.delete_objects(request_model.storage_location, to_be_deleted_object_ids)
         LOGGER.info("Done!")

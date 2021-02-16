@@ -3,7 +3,7 @@ from abc import ABC, abstractmethod
 from dataclasses import dataclass
 from typing import Any, Generic, TypeVar
 
-from .interfaces import AbstractDatabaseGateway, AbstractExternalGateway
+from .interfaces import AbstractDatabaseGateway, AbstractStorageGateway
 
 
 @dataclass
@@ -11,7 +11,7 @@ class AbstractRequestModel(ABC):
     """Abstract base class for all request-models."""
 
     db_config: Any
-    external_config: Any
+    storage_config: Any
 
 
 RequestModel = TypeVar("RequestModel", bound=AbstractRequestModel)
@@ -20,15 +20,15 @@ RequestModel = TypeVar("RequestModel", bound=AbstractRequestModel)
 class AbstractUseCase(ABC, Generic[RequestModel]):
     """Abstract base class for all use-cases."""
 
-    def __init__(self, db_gateway: AbstractDatabaseGateway, external_gateway: AbstractExternalGateway) -> None:
-        """Initialize Clean."""
+    def __init__(self, db_gateway: AbstractDatabaseGateway, storage_gateway: AbstractStorageGateway) -> None:
+        """Initialize the use-case."""
         self.db_gateway = db_gateway
-        self.external_gateway = external_gateway
+        self.storage_gateway = storage_gateway
 
     def __call__(self, request_model: RequestModel) -> None:
         """Execute the use-case."""
         self.db_gateway.configure(request_model.db_config)
-        self.external_gateway.configure(request_model.external_config)
+        self.storage_gateway.configure(request_model.storage_config)
         self._execute(request_model)
 
     @abstractmethod
@@ -37,7 +37,7 @@ class AbstractUseCase(ABC, Generic[RequestModel]):
 
     def __repr__(self) -> str:
         """Return a string representation of the object."""
-        return f"{self.__class__.__name__}(db_gateway={self.db_gateway}, external_gateway={self.external_gateway})"
+        return f"{self.__class__.__name__}(db_gateway={self.db_gateway}, storage_gateway={self.storage_gateway})"
 
 
 UseCase = TypeVar("UseCase", bound=AbstractUseCase)

@@ -20,13 +20,13 @@ class AbstractDatabaseGateway(AbstractGateway):
         """Get the IDs of entities stored in the database."""
 
 
-class AbstractExternalGateway(AbstractGateway):
-    """Defines the interface of the external gateway as expected by the use-cases."""
+class AbstractStorageGateway(AbstractGateway):
+    """Defines the interface of the storage gateway as expected by the use-cases."""
 
     @abstractmethod
     def get_object_ids(self, location: Any) -> Set[UUID]:
-        """Get the IDs of all objects stored in the external store."""
+        """Get the IDs of all objects stored in the storage."""
 
     @abstractmethod
     def delete_objects(self, location: Any, object_ids: Set[UUID]) -> None:
-        """Delete the objects specified by the provided object IDs from the external store."""
+        """Delete the objects specified by the provided object IDs from the storage."""
