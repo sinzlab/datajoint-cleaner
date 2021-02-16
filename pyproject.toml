@@ -18,6 +18,9 @@ license = { text = "GPL-3.0-only" }
 [project.urls]
 homepage = "https://github.com/sinzlab/datajoint-cleaner"
 
+[project.scripts]
+dj-cleaner = "dj_cleaner.__main__:toml_cli_entry"
+
 [tool.black]
 line-length = 120
 
