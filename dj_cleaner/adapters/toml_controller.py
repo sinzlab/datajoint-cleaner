@@ -4,7 +4,6 @@ from typing import Any, Dict
 
 from ..use_cases.abstract import UseCase
 from ..use_cases.clean import CleanRequestModel
-from . import FACADE_CONFIGS
 from .minio_gateway import MinIOLocation
 from .pymysql_gateway import PyMySQLLocation
 
@@ -22,11 +21,11 @@ class TOMLController:
             db_server_config = config["database_servers"][cleaning_run["database_server"]]
             storage_server_kind, storage_server_name = cleaning_run["storage_server"].split(".")
             storage_server_config = config["storage_servers"][storage_server_kind][storage_server_name]
-            db_config = FACADE_CONFIGS["database"](**db_server_config)
-            external_config = FACADE_CONFIGS[storage_server_kind](**storage_server_config)
             db_location = PyMySQLLocation(cleaning_run["schema"], cleaning_run["store"])
             external_location = MinIOLocation(cleaning_run["schema"], cleaning_run["bucket"], cleaning_run["location"])
-            self.use_cases["clean"](CleanRequestModel(db_config, external_config, db_location, external_location))
+            self.use_cases["clean"](
+                CleanRequestModel(db_server_config, storage_server_config, db_location, external_location)
+            )
 
     def __repr__(self) -> str:
         """Return a string representation of the object."""

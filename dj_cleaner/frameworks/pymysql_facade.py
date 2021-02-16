@@ -1,28 +1,22 @@
 """Contains the facade of the PyMySQL interface."""
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, TypedDict
 
 from pymysql import connect
 from pymysql.connections import Connection
 from pymysql.cursors import DictCursor
 
-from ..adapters.interfaces import AbstractFacadeConfig, AbstractPyMySQLFacade
+from ..adapters.interfaces import AbstractPyMySQLFacade
 
 
-class PyMySQLFacadeConfig(AbstractFacadeConfig):
+class PyMySQLFacadeConfig(TypedDict):  # pylint: disable=inherit-non-class
     """Configuration for the PyMySQL facade."""
 
-    def __init__(self, host: str, user: str, password: str):
-        """Initialize PyMySQLFacadeConfig."""
-        self.host = host
-        self.user = user
-        self.password = password
-
-    def to_dict(self) -> Dict[str, str]:
-        """Return configuration as a dictionary."""
-        return {"host": self.host, "user": self.user, "password": self.password}
+    host: str
+    user: str
+    password: str
 
 
-class PyMySQLFacade(AbstractPyMySQLFacade[PyMySQLFacadeConfig]):
+class PyMySQLFacade(AbstractPyMySQLFacade):
     """Facade for the PyMySQL interface."""
 
     def __init__(self) -> None:
@@ -38,7 +32,7 @@ class PyMySQLFacade(AbstractPyMySQLFacade[PyMySQLFacadeConfig]):
 
     def configure(self, config: PyMySQLFacadeConfig) -> None:
         """Configure the facade."""
-        self._connection = connect(cursorclass=DictCursor, **config.to_dict())
+        self._connection = connect(cursorclass=DictCursor, **config)
 
     def execute(self, database: str, sql: str) -> List[Dict[str, Any]]:
         """Execute SQL against the provided database and return the result."""

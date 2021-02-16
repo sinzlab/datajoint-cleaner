@@ -1,28 +1,17 @@
 """Contains the definitions of interfaces as expected by the adapters."""
 from abc import ABC, abstractmethod
-from typing import Any, Dict, Generic, List, Set, TypeVar
+from typing import Any, Dict, List, Set, TypeVar
 
 
-class AbstractFacadeConfig(ABC):
-    """Abstract base class for all facade configs."""
-
-    @abstractmethod
-    def __init__(self, **kwargs) -> None:
-        """Initialize AbstractFacadeConfig."""
-
-
-FacadeConfig = TypeVar("FacadeConfig", bound=AbstractFacadeConfig)
-
-
-class AbstractFacade(ABC, Generic[FacadeConfig]):
+class AbstractFacade(ABC):
     """Abstract base class for all facades."""
 
     @abstractmethod
-    def configure(self, config: FacadeConfig) -> None:
+    def configure(self, config: Any) -> None:
         """Configure the facade."""
 
 
-class AbstractPyMySQLFacade(AbstractFacade[FacadeConfig]):
+class AbstractPyMySQLFacade(AbstractFacade):
     """Defines the interface of the PyMySQL facade as expected by the PyMySQL gateway."""
 
     @abstractmethod
@@ -33,7 +22,7 @@ class AbstractPyMySQLFacade(AbstractFacade[FacadeConfig]):
 PyMySQLFacade = TypeVar("PyMySQLFacade", bound=AbstractPyMySQLFacade)
 
 
-class AbstractMinIOFacade(AbstractFacade[FacadeConfig]):
+class AbstractMinIOFacade(AbstractFacade):
     """Defines the interface of the MinIO facade as expected by the MinIO gateway."""
 
     @abstractmethod

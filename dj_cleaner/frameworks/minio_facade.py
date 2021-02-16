@@ -1,33 +1,22 @@
 """Contains the facade of the MinIO interface."""
-from typing import Dict, List, Optional, Set, Union
+from typing import List, Optional, Set, TypedDict
 
 from minio import Minio
 from minio.deleteobjects import DeleteObject
 
-from ..adapters.interfaces import AbstractFacadeConfig, AbstractMinIOFacade
+from ..adapters.interfaces import AbstractMinIOFacade
 
 
-class MinIOFacadeConfig(AbstractFacadeConfig):
-    """Configuration for the MinIO facade."""
+class MinIOFacadeConfig(TypedDict):  # pylint: disable=inherit-non-class
+    """Configuration for the MinIOFacade."""
 
-    def __init__(self, endpoint: str, access_key: str, secret_key: str, secure: bool) -> None:
-        """Initialize MinIOFacadeConfig."""
-        self.endpoint = endpoint
-        self.access_key = access_key
-        self.secret_key = secret_key
-        self.secure = secure
-
-    def to_dict(self) -> Dict[str, Union[str, bool]]:
-        """Return configuration as dictionary."""
-        return {
-            "endpoint": self.endpoint,
-            "access_key": self.access_key,
-            "secret_key": self.secret_key,
-            "secure": self.secure,
-        }
+    endpoint: str
+    access_key: str
+    secret_key: str
+    secure: bool
 
 
-class MinIOFacade(AbstractMinIOFacade[MinIOFacadeConfig]):  # pylint: disable=unsubscriptable-object
+class MinIOFacade(AbstractMinIOFacade):  # pylint: disable=unsubscriptable-object
     """Facade of the MinIO interface."""
 
     def __init__(self) -> None:
@@ -43,7 +32,7 @@ class MinIOFacade(AbstractMinIOFacade[MinIOFacadeConfig]):  # pylint: disable=un
 
     def configure(self, config: MinIOFacadeConfig) -> None:
         """Configure the facade."""
-        self._client = Minio(**config.to_dict())
+        self._client = Minio(**config)
 
     def get_object_paths(self, bucket_name: str, prefix: str) -> List[str]:
         """Get all paths that match the provided prefix of MinIO objects from the bucket."""
