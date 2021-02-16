@@ -46,8 +46,8 @@ class PyMySQLFacade(AbstractPyMySQLFacade):
             with self.connection.cursor() as cursor:
                 cursor.execute(sql)
                 result = cursor.fetchall()
+                LOGGER.info("Done!")
                 return result  # type: ignore
-        LOGGER.info("Done!")
 
     def __repr__(self) -> str:
         """Return a string representation of the object."""
