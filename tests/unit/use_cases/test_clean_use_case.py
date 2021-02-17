@@ -3,8 +3,8 @@ from dataclasses import is_dataclass
 from unittest.mock import MagicMock, create_autospec
 
 import pytest
-from dj_cleaner.use_cases.abstract import AbstractRequestModel, AbstractUseCase
-from dj_cleaner.use_cases.clean import Clean, CleanRequestModel
+from dj_cleaner.use_cases.abstract import AbstractRequestModel, AbstractResponseModel, AbstractUseCase
+from dj_cleaner.use_cases.clean import Clean, CleanRequestModel, CleanResponseModel
 from dj_cleaner.use_cases.interfaces import AbstractDatabaseGateway, AbstractStorageGateway
 
 
@@ -17,6 +17,17 @@ class TestCleanRequestModel:
 
     def test_if_annotations_are_correct(self):
         assert all(x in CleanRequestModel.__annotations__ for x in ("db_location", "storage_location"))
+
+
+class TestCleanResponseModel:
+    def test_if_dataclass(self):
+        assert is_dataclass(CleanResponseModel)
+
+    def test_if_subclass_of_abstract_response_model(self):
+        assert issubclass(CleanResponseModel, AbstractResponseModel)
+
+    def test_if_annotations_are_correct(self):
+        assert "n_deleted" in CleanResponseModel.__annotations__
 
 
 @pytest.fixture
