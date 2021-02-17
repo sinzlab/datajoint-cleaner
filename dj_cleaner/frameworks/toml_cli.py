@@ -11,7 +11,7 @@ from ..adapters.toml_controller import TOMLController
 LOGGER = logging.getLogger(__name__)
 
 
-class TOMLCLI:  # pylint: disable=too-few-public-methods
+class TOMLCLI:
     """Command line interface using TOML configuration file."""
 
     def __init__(self, controller: TOMLController) -> None:
@@ -48,3 +48,7 @@ class TOMLCLI:  # pylint: disable=too-few-public-methods
             raise ValueError(f"Invalid log level: {parsed_args.log_level}")
         format_string = "%(asctime)s:%(levelname)s:%(name)s:%(message)s"
         logging.basicConfig(filename=parsed_args.log_file, level=numeric_level, format=format_string)
+
+    def __repr__(self) -> str:
+        """Return a string representation of the object."""
+        return f"{self.__class__.__name__}(controller={self.controller})"
