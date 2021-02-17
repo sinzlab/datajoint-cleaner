@@ -1,7 +1,7 @@
 """Contains the abstract base class all use-cases must inherit."""
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
-from typing import Any, Generic, TypeVar
+from typing import Any, Callable, Generic, TypeVar
 
 from .interfaces import AbstractDatabaseGateway, AbstractStorageGateway
 
@@ -25,11 +25,17 @@ class AbstractResponseModel(ABC):
 ResponseModel = TypeVar("ResponseModel", bound=AbstractResponseModel)
 
 
-class AbstractUseCase(ABC, Generic[RequestModel]):
+class AbstractUseCase(ABC, Generic[RequestModel, ResponseModel]):
     """Abstract base class for all use-cases."""
 
-    def __init__(self, db_gateway: AbstractDatabaseGateway, storage_gateway: AbstractStorageGateway) -> None:
+    def __init__(
+        self,
+        output_port: Callable[[ResponseModel], None],
+        db_gateway: AbstractDatabaseGateway,
+        storage_gateway: AbstractStorageGateway,
+    ) -> None:
         """Initialize the use-case."""
+        self.output_port = output_port
         self.db_gateway = db_gateway
         self.storage_gateway = storage_gateway
 
@@ -37,10 +43,11 @@ class AbstractUseCase(ABC, Generic[RequestModel]):
         """Execute the use-case."""
         self.db_gateway.configure(request_model.db_config)
         self.storage_gateway.configure(request_model.storage_config)
-        self._execute(request_model)
+        response_model = self._execute(request_model)
+        self.output_port(response_model)
 
     @abstractmethod
-    def _execute(self, request_model: RequestModel) -> None:
+    def _execute(self, request_model: RequestModel) -> ResponseModel:
         """Execute the use-case."""
 
     def __repr__(self) -> str:

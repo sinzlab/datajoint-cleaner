@@ -20,6 +20,11 @@ class TestCleanRequestModel:
 
 
 @pytest.fixture
+def output_port():
+    return MagicMock(name="output_port")
+
+
+@pytest.fixture
 def db_gateway():
     db_gateway = create_autospec(AbstractDatabaseGateway)
     db_gateway.get_ids.return_value = {1, 2, 3}
@@ -34,8 +39,8 @@ def storage_gateway():
 
 
 @pytest.fixture
-def use_case(db_gateway, storage_gateway):
-    return Clean(db_gateway, storage_gateway)
+def use_case(output_port, db_gateway, storage_gateway):
+    return Clean(output_port, db_gateway, storage_gateway)
 
 
 @pytest.fixture
