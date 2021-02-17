@@ -75,6 +75,10 @@ class TestClean:
         use_case(request_model)
         storage_gateway.delete_objects.assert_called_once_with(request_model.storage_location, {4})
 
+    def test_if_correct_response_model_is_passed_to_output_port(self, use_case, request_model, output_port):
+        use_case(request_model)
+        output_port.assert_called_once_with(CleanResponseModel(1))
+
     def test_logged_messages(self, caplog, use_case, request_model):
         with caplog.at_level(logging.INFO):
             use_case(request_model)
