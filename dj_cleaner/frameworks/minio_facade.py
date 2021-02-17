@@ -10,7 +10,7 @@ from ..adapters.interfaces import AbstractMinIOFacade
 LOGGER = logging.getLogger(__name__)
 
 
-class MinIOFacadeConfig(TypedDict):  # pylint: disable=inherit-non-class
+class MinIOFacadeConfig(TypedDict):  # pylint: disable=inherit-non-class, too-few-public-methods
     """Configuration for the MinIOFacade."""
 
     endpoint: str

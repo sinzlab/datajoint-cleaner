@@ -4,7 +4,7 @@ from typing import Any, Set
 from uuid import UUID
 
 
-class AbstractGateway(ABC):
+class AbstractGateway(ABC):  # pylint: disable=too-few-public-methods
     """Abstract base class for all gateways."""
 
     @abstractmethod

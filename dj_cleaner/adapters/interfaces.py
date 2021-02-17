@@ -3,7 +3,7 @@ from abc import ABC, abstractmethod
 from typing import Any, Dict, List, Set, TypeVar
 
 
-class AbstractFacade(ABC):
+class AbstractFacade(ABC):  # pylint: disable=too-few-public-methods
     """Abstract base class for all facades."""
 
     @abstractmethod

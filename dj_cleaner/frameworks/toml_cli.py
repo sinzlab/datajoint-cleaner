@@ -11,7 +11,7 @@ from ..adapters.toml_controller import TOMLController
 LOGGER = logging.getLogger(__name__)
 
 
-class TOMLCLI:
+class TOMLCLI:  # pylint: disable=too-few-public-methods
     """Command line interface using TOML configuration file."""
 
     def __init__(self, controller: TOMLController) -> None:

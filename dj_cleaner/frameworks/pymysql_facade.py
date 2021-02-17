@@ -11,7 +11,7 @@ from ..adapters.interfaces import AbstractPyMySQLFacade
 LOGGER = logging.getLogger(__name__)
 
 
-class PyMySQLFacadeConfig(TypedDict):  # pylint: disable=inherit-non-class
+class PyMySQLFacadeConfig(TypedDict):  # pylint: disable=inherit-non-class, too-few-public-methods
     """Configuration for the PyMySQL facade."""
 
     host: str
