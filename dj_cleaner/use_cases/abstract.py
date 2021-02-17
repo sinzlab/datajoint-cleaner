@@ -54,7 +54,7 @@ class AbstractUseCase(ABC, Generic[RequestModel, ResponseModel]):
         """Return a string representation of the object."""
         return (
             f"{self.__class__.__name__}(output_port={self.output_port},"
-            " db_gateway={self.db_gateway}, storage_gateway={self.storage_gateway})"
+            f" db_gateway={self.db_gateway}, storage_gateway={self.storage_gateway})"
         )
 
 
