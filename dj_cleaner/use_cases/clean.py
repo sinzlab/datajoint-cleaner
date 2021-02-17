@@ -20,6 +20,8 @@ class CleanRequestModel(AbstractRequestModel):
 class CleanResponseModel(AbstractResponseModel):
     """Response model for the clean use-case."""
 
+    n_deleted: int
+
 
 class Clean(
     AbstractUseCase[CleanRequestModel, CleanResponseModel]
@@ -34,4 +36,4 @@ class Clean(
         to_be_deleted_object_ids = storage_object_ids - db_object_ids
         self.storage_gateway.delete_objects(request_model.storage_location, to_be_deleted_object_ids)
         LOGGER.info("Done!")
-        return CleanResponseModel()
+        return CleanResponseModel(len(to_be_deleted_object_ids))
