@@ -24,6 +24,11 @@ dj-cleaner = "dj_cleaner.__main__:toml_cli_entry"
 [tool.black]
 line-length = 120
 
+[tool.isort]
+profile = "black"
+multi_line_output = 3
+line_length = 120
+
 [tool.pylint.master]
 max-line-length = 120
 ignore-patterns = "test_.*?\\.py"
