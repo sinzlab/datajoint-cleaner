@@ -28,6 +28,9 @@ line-length = 120
 max-line-length = 120
 ignore-patterns = "test_.*?\\.py"
 
+[tool.pylint.messages_control]
+disable = "logging-fstring-interpolation"
+
 [tool.coverage.run]
 branch = true
 source = ["dj_cleaner"]
