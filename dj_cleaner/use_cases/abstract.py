@@ -8,13 +8,21 @@ from .interfaces import AbstractDatabaseGateway, AbstractStorageGateway
 
 @dataclass
 class AbstractRequestModel(ABC):
-    """Abstract base class for all request-models."""
+    """Abstract base class for all request models."""
 
     db_config: Any
     storage_config: Any
 
 
 RequestModel = TypeVar("RequestModel", bound=AbstractRequestModel)
+
+
+@dataclass
+class AbstractResponseModel(ABC):
+    """Abstract base class for all response models."""
+
+
+ResponseModel = TypeVar("ResponseModel", bound=AbstractResponseModel)
 
 
 class AbstractUseCase(ABC, Generic[RequestModel]):
