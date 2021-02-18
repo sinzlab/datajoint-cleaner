@@ -62,8 +62,18 @@ def gateway(facade):
     return PyMySQLGateway(facade=facade)
 
 
+@pytest.fixture
+def config():
+    return MagicMock(name="config")
+
+
 def test_if_facade_is_stored_as_instance_attribute(gateway, facade):
     assert gateway.facade is facade
+
+
+def test_if_configure_method_of_facade_is_called_correctly(gateway, config, facade):
+    gateway.configure(config)
+    facade.configure.assert_called_once_with(config)
 
 
 def test_if_execute_method_of_facade_is_called_correctly_when_getting_ids(
