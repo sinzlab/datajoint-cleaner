@@ -1,10 +1,20 @@
+from dataclasses import is_dataclass
 from unittest.mock import MagicMock, create_autospec
 from uuid import UUID
 
 import pytest
+
 from dj_cleaner.adapters.pymysql_gateway import PyMySQLGateway, PyMySQLLocation
 from dj_cleaner.frameworks.pymysql_facade import PyMySQLFacade
 from dj_cleaner.use_cases.interfaces import AbstractDatabaseGateway
+
+
+class TestPyMySQLLocation:
+    def test_if_dataclass(self):
+        assert is_dataclass(PyMySQLLocation)
+
+    def test_if_annotations_are_correct(self):
+        assert all(x in PyMySQLLocation.__annotations__ for x in ("schema_name", "store_name"))
 
 
 def test_if_subclass_of_abstract_database_gateway():
