@@ -62,11 +62,6 @@ def gateway(facade):
     return PyMySQLGateway(facade=facade)
 
 
-@pytest.fixture
-def config():
-    return MagicMock(name="config")
-
-
 def test_if_facade_is_stored_as_instance_attribute(gateway, facade):
     assert gateway.facade is facade
 

@@ -47,11 +47,6 @@ def gateway(facade):
 
 
 @pytest.fixture
-def config():
-    return MagicMock(name="config")
-
-
-@pytest.fixture
 def location():
     location = create_autospec(MinIOLocation)
     location.schema_name = "schema"
