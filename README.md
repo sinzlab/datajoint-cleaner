@@ -3,6 +3,7 @@
 ![Test](https://github.com/cblessing24/datajoint-cleaner/workflows/Test/badge.svg)
 ![Black](https://github.com/cblessing24/datajoint-cleaner/workflows/Black/badge.svg)
 ![Mypy](https://github.com/cblessing24/datajoint-cleaner/workflows/Mypy/badge.svg)
+![Build](https://github.com/cblessing24/datajoint-cleaner/workflows/Build/badge.svg)
 
 ## Installation
 
