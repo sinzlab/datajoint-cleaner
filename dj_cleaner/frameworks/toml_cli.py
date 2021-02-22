@@ -54,7 +54,7 @@ class TOMLCLI:
             config = dict(toml.load(parsed_args.config_file))
         except FileNotFoundError:
             self.parser.error(f"Could not find configuration file at {parsed_args.config_file}.")
-        LOGGER.info(f"Loaded TOML config file from {parsed_args.config_file}")
+        LOGGER.info(f"Loaded TOML configuration file from {parsed_args.config_file}")
         return config
 
     def __repr__(self) -> str:

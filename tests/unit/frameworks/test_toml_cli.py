@@ -73,7 +73,7 @@ def test_if_clean_method_of_controller_is_called_correctly(toml_cli, args, contr
 def test_if_logged_messages_are_correct(caplog, toml_cli, args, config_file_path):
     with caplog.at_level(logging.INFO, logger="dj_cleaner.frameworks.toml_cli"):
         toml_cli.clean(args)
-        messages = ["Starting cleaning", f"Loaded TOML config file from {config_file_path}", "Finished cleaning"]
+        messages = ["Starting cleaning", f"Loaded TOML configuration file from {config_file_path}", "Finished cleaning"]
         for record, message in zip(caplog.records, messages):
             assert record.message == message
 
