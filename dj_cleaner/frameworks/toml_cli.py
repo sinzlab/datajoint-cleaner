@@ -39,13 +39,12 @@ class TOMLCLI:
         self.controller.clean(config)
         LOGGER.info("Finished cleaning")
 
-    @staticmethod
-    def _configure_logging(parsed_args) -> None:
+    def _configure_logging(self, parsed_args) -> None:
         if parsed_args.log_file is None:
             return
         numeric_level = getattr(logging, parsed_args.log_level.upper(), None)
         if not isinstance(numeric_level, int):
-            raise ValueError(f"Invalid log level: {parsed_args.log_level}")
+            self.parser.error(f"Log level {parsed_args.log_level} is invalid.")
         format_string = "%(asctime)s:%(levelname)s:%(name)s:%(message)s"
         logging.basicConfig(filename=parsed_args.log_file, level=numeric_level, format=format_string)
 

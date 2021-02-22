@@ -57,7 +57,15 @@ def test_if_controller_is_stored_as_instance_attribute(toml_cli, controller):
     assert toml_cli.controller is controller
 
 
-def test_if_parser_prints_to_standard_error_if_config_file_is_missing(capsys, config_file_path, toml_cli, args):
+def test_if_parser_error_is_raised_if_invalid_log_level_is_used(capsys, toml_cli, args):
+    args += ["--log-file", "my_log_file", "--log-level", "invalid"]
+    with pytest.raises(SystemExit):
+        toml_cli.clean(args)
+    _, err = capsys.readouterr()
+    assert err.endswith("Log level invalid is invalid.\n")
+
+
+def test_if_parser_error_is_raised_if_config_file_can_not_be_found(capsys, config_file_path, toml_cli, args):
     os.remove(config_file_path)
     with pytest.raises(SystemExit):
         toml_cli.clean(args)
