@@ -1,6 +1,6 @@
 [project]
 name = "datajoint-cleaner"
-version = "0.0"
+version = "0.1"
 description = "A tool for cleaning up external DataJoint stores"
 readme = "README.md"
 authors = [{ name = "Christoph Blessing", email = "chris.blessing@protonmail.com" }]
