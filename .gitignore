@@ -133,3 +133,6 @@ dmypy.json
 
 # Visual studio code
 .vscode/
+
+# Coverage reports
+reports/
