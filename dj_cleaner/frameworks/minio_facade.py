@@ -48,7 +48,7 @@ class MinIOFacade(AbstractMinIOFacade):  # pylint: disable=unsubscriptable-objec
 
     def remove_objects(self, bucket_name: str, object_paths: Set[str]) -> None:
         """Delete the MinIO objects identified by the provided paths from the bucket."""
-        LOGGER.info(f"Removing f{len(object_paths)} objects from bucket {bucket_name}...")
+        LOGGER.info(f"Removing {len(object_paths)} objects from bucket {bucket_name}...")
         delete_object_list = [DeleteObject(x) for x in object_paths]
         errors = self.client.remove_objects(bucket_name, delete_object_list=delete_object_list)
         for error in errors:
