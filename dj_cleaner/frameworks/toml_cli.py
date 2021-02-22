@@ -1,8 +1,9 @@
 """Contains the TOML command line interface."""
 import logging
-from argparse import ArgumentParser
+from argparse import ArgumentParser, Namespace
 from collections.abc import Sequence
 from pathlib import Path
+from typing import Any, Dict
 
 import toml
 
@@ -34,8 +35,7 @@ class TOMLCLI:
         parsed_args = self.parser.parse_args(args)
         self._configure_logging(parsed_args)
         LOGGER.info("Starting cleaning")
-        config = dict(toml.load(parsed_args.config_file))
-        LOGGER.info(f"Loaded TOML config file from {parsed_args.config_file}")
+        config = self._load_config(parsed_args)
         self.controller.clean(config)
         LOGGER.info("Finished cleaning")
 
@@ -48,6 +48,14 @@ class TOMLCLI:
             raise ValueError(f"Invalid log level: {parsed_args.log_level}")
         format_string = "%(asctime)s:%(levelname)s:%(name)s:%(message)s"
         logging.basicConfig(filename=parsed_args.log_file, level=numeric_level, format=format_string)
+
+    def _load_config(self, parsed_args: Namespace) -> Dict[str, Any]:
+        try:
+            config = dict(toml.load(parsed_args.config_file))
+        except FileNotFoundError:
+            self.parser.error(f"Could not find configuration file at {parsed_args.config_file}.")
+        LOGGER.info(f"Loaded TOML config file from {parsed_args.config_file}")
+        return config
 
     def __repr__(self) -> str:
         """Return a string representation of the object."""
