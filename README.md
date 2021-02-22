@@ -4,6 +4,7 @@
 ![Black](https://github.com/cblessing24/datajoint-cleaner/workflows/Black/badge.svg)
 ![Mypy](https://github.com/cblessing24/datajoint-cleaner/workflows/Mypy/badge.svg)
 ![Build](https://github.com/cblessing24/datajoint-cleaner/workflows/Build/badge.svg)
+[![PyPI version](https://badge.fury.io/py/datajoint-cleaner.svg)](https://badge.fury.io/py/datajoint-cleaner)
 
 DataJoint-Cleaner is a tool used to clean external [DataJoint](https://datajoint.io/) [stores](https://docs.datajoint.io/python/admin/5-blob-config.html?highlight=external).
 
