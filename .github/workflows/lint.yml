@@ -15,7 +15,7 @@ jobs:
     - name: Install flake8
       run: |
         pip install --upgrade pip
-        pip install flake8
+        pip install flake8 pydocstyle
     - name: Check code with Black
       uses: psf/black@master
     - name: Check imports with isort
@@ -26,3 +26,5 @@ jobs:
         checkname: 'lint'
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Check docstrings with pydocstyle
+      run: pydocstyle dj_cleaner
