@@ -1,0 +1,28 @@
+name: Lint
+
+on: [push, pull_request]
+
+jobs:
+  lint:
+    runs-on: ubuntu-18.04
+    steps:
+    - name: Check out code
+      uses: actions/checkout@v2
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.9'
+    - name: Install flake8
+      run: |
+        pip install --upgrade pip
+        pip install flake8
+    - name: Check code with Black
+      uses: psf/black@master
+    - name: Check imports with isort
+      uses: jamescurtin/isort-action@master
+    - name: Run flake8
+      uses: suo/flake8-github-action@releases/v1
+      with:
+        checkname: 'lint'
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
