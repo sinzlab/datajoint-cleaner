@@ -3,6 +3,7 @@ from dataclasses import is_dataclass
 from unittest.mock import MagicMock, create_autospec
 
 import pytest
+
 from dj_cleaner.use_cases.abstract import AbstractRequestModel, AbstractResponseModel, AbstractUseCase
 from dj_cleaner.use_cases.clean import Clean, CleanRequestModel, CleanResponseModel
 from dj_cleaner.use_cases.interfaces import AbstractDatabaseGateway, AbstractStorageGateway

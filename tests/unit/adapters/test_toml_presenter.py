@@ -1,6 +1,7 @@
 from unittest.mock import create_autospec
 
 import pytest
+
 from dj_cleaner.adapters.toml_presenter import TOMLPresenter
 from dj_cleaner.use_cases.clean import CleanResponseModel
 
