@@ -1,7 +1,7 @@
 # DataJoint-Cleaner
 
 ![Test](https://github.com/cblessing24/datajoint-cleaner/workflows/Test/badge.svg)
-![Black](https://github.com/cblessing24/datajoint-cleaner/workflows/Black/badge.svg)
+![Lint](https://github.com/cblessing24/datajoint-cleaner/workflows/Lint/badge.svg)
 ![Mypy](https://github.com/cblessing24/datajoint-cleaner/workflows/Mypy/badge.svg)
 [![codecov](https://codecov.io/gh/cblessing24/datajoint-cleaner/branch/prototype/graph/badge.svg?token=cqR5nrFkeU)](https://codecov.io/gh/cblessing24/datajoint-cleaner)
 ![Build](https://github.com/cblessing24/datajoint-cleaner/workflows/Build/badge.svg)
