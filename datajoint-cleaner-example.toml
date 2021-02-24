@@ -3,7 +3,7 @@ host = "192.156.3.65"
 user = "me"
 password = "mypassword"
 
-[minio_servers.minio.my_minio_server]
+[storage_servers.minio.my_minio_server]
 endpoint = "192.543.5.61"
 access_key = "my_access_key"
 secret_key = "my_secret_key"
