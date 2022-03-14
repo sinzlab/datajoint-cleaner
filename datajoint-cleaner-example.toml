@@ -10,9 +10,9 @@ secret_key = "my_secret_key"
 secure = true
 
 [[cleaning_runs]]
-database = "my_db_server"
+database_server = "my_db_server"
 schema = "my_schema"
 store = "my_store"
-minio = "minio.my_minio_server"
+storage_server = "minio.my_minio_server"
 bucket = "my_bucket"
 location = "my_location"
