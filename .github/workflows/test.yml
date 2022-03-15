@@ -1,0 +1,31 @@
+name: Test
+
+on:
+  push:
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  test:
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+      - name: Setup python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.9'
+      - name: Install pdm
+        run: |
+          python -m pip install --upgrade pip
+          pip install pdm
+      - name: Install project
+        run: pdm install --dev
+      - name: Run pytest with coverage
+        run: |
+          mkdir reports
+          pdm run pytest --cov --cov-report=xml:reports/coverage.xml tests
+      - name: Upload coverage report to Codecov
+        run:  bash <(curl -s https://codecov.io/bash) 
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}

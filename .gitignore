@@ -127,3 +127,12 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Python dependency master
+.pdm.toml
+
+# Visual studio code
+.vscode/
+
+# Coverage reports
+reports/

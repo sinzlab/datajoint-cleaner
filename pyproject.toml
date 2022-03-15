@@ -1,0 +1,46 @@
+[project]
+name = "datajoint-cleaner"
+version = "0.1"
+description = "A tool for cleaning up external DataJoint stores"
+readme = "README.md"
+authors = [{ name = "Christoph Blessing", email = "chris.blessing@protonmail.com" }]
+dependencies = ["minio~=7.0", "pymysql~=1.0", "toml~=0.10"]
+dev-dependencies = [
+    "docker~=4.4",
+    "datajoint~=0.12",
+    "pytest~=6.2",
+    "pytest-cov~=2.11",
+]
+requires-python = ">=3.9"
+dynamic = ["classifiers"]
+license = { text = "GPL-3.0-only" }
+
+[project.urls]
+homepage = "https://github.com/sinzlab/datajoint-cleaner"
+
+[project.scripts]
+dj-cleaner = "dj_cleaner.__main__:toml_cli_entry"
+
+[tool.black]
+line-length = 120
+
+[tool.isort]
+profile = "black"
+multi_line_output = 3
+line_length = 120
+
+[tool.pylint.master]
+max-line-length = 120
+ignore-patterns = "test_.*?\\.py"
+
+[tool.pylint.messages_control]
+disable = "logging-fstring-interpolation"
+
+[tool.coverage.run]
+branch = true
+source = ["dj_cleaner"]
+
+[tool.pdm]
+[build-system]
+requires = ["pdm-pep517"]
+build-backend = "pdm.pep517.api"
